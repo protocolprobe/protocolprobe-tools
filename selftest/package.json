@@ -1,0 +1,38 @@
+{
+  "name": "protocolprobe-selftest",
+  "version": "0.5.0",
+  "description": "Runs ProtocolProbe's MCP security checks against YOUR OWN MCP server, from your machine: a local stdio server, or your Streamable HTTP server after it proves control of its exact URL (with your own credential from an environment variable when it needs one). Results stay on your machine; the score counts only checks that ran.",
+  "type": "module",
+  "license": "ISC",
+  "author": "ProtocolProbe <hello@protocolprobe.com>",
+  "homepage": "https://protocolprobe.com",
+  "keywords": ["mcp", "model-context-protocol", "security", "testing"],
+  "contentPolicy": { "class": "dual-use" },
+  "bin": { "protocolprobe-selftest": "selftest.mjs" },
+  "main": "selftest.mjs",
+  "files": [
+    "selftest.mjs",
+    "src/api-rules.js",
+    "src/args.js",
+    "src/auth-signals.js",
+    "src/dims.js",
+    "src/oauth.js",
+    "src/patterns.js",
+    "src/remote-proof.js",
+    "src/report.js",
+    "src/sarif.js",
+    "src/score.js",
+    "src/session.js",
+    "DISCLOSURE",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": { "node": ">=18" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.0",
+    "zod": "4.6.5"
+  },
+  "scripts": {
+    "test": "node --test test/package.test.mjs"
+  }
+}

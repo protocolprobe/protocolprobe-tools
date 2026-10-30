@@ -1,0 +1,24 @@
+name: Bug or wrong result
+description: A tool crashed, printed something wrong, or gave a result you think is incorrect
+body:
+  - type: dropdown
+    id: tool
+    attributes: { label: Tool, options: [protocolprobe-selftest, protocolprobe-discover] }
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes: { label: Tool version (npx <tool> --version), placeholder: "0.5.0" }
+    validations: { required: true }
+  - type: input
+    id: node
+    attributes: { label: Node version and OS, placeholder: "Node 20.9, Windows 11" }
+    validations: { required: true }
+  - type: textarea
+    id: ran
+    attributes:
+      label: The command you ran and what happened
+      description: Remove tokens, keys and any protocolprobe-proof value before pasting.
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: What you expected }

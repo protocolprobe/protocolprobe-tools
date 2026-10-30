@@ -1,0 +1,95 @@
+protocolprobe-selftest: dual-use disclosure
+
+What it is
+A command-line tool that runs ProtocolProbe's MCP server checks against an MCP server that YOU run, from YOUR machine:
+either a server it starts on your machine (--stdio), or, from 0.2.0, your own Streamable HTTP server at a URL (--url), but
+only after that server has shown, by returning a one-time value, that you control it. It connects as an MCP client, lists
+the server's tools, calls them, and reports what it saw.
+
+Dual-use functionality
+Two checks behave like a security test and are therefore off unless you turn them on:
+  --allow-mutating  calls tools whose names or annotations suggest they change data (a tool may really change data)
+  --allow-fuzzing   sends wrong-type, oversized and missing-required input to tools
+The remaining checks call tools with normal-shaped arguments, start a listener on 127.0.0.1 to see whether a tool fetches a
+URL it is given, and read tool descriptions, resources and prompts.
+
+Intended legitimate use
+A developer or operator checking their own MCP server before release, or in their own CI.
+
+What keeps it to that
+- --i-own-this-server must be typed on every run.
+- --stdio: a command that contains a non-local http(s) address is refused, so the stdio lane cannot be pointed at a remote
+  server through a proxy.
+- --url: a URL is accepted only after the server at that exact URL returns a one-time value from this tool:
+    - the first run makes a value (256 random bits), prints it, keeps only its hash on your machine, and connects to nothing;
+    - you add the line "protocolprobe-proof=<value>" on its own line to your server's MCP instructions (the text it returns
+      at initialize) and run the same command again within 30 minutes;
+    - the value is read on the same connection that then runs the checks, before any tool is listed or called; it works
+      once (it is deleted before the checks start) and only for that exact URL (scheme, host, port, path and query);
+    - no redirect is followed, of any kind; the host name is resolved once and every connection of the run goes to that
+      address, so a DNS change during the run is not followed; https certificates are checked against the host name;
+    - https for any host; http only for this machine (localhost, 127.0.0.1, ::1, and the name must resolve to loopback);
+    - a server that needs a credential (0.3.0): you may give your OWN credential,
+      only through an environment variable: --bearer-env VAR sends "Authorization: Bearer <value of VAR>",
+      --header-env Name=VAR sends that header.
+      There is no option that takes the value itself (shell history and the process list would show it). The value is
+      sent only to the exact proven URL, on the session that reads the proof and runs the checks; never on a redirect
+      (none is followed), never to OAuth metadata (same host or not) and never to the one initialize the tool sends
+      WITHOUT credentials to see whether your server also accepts a session with none. It is never printed, never
+      written to --out and never stored: its exact value (as is, JSON-escaped and URL-encoded) is replaced by
+      [redacted] in everything the tool prints and writes, also when your server repeats it in an error or a result.
+      A server that refuses the credential is not tested (exit 4, "your server refused the credential you supplied").
+      Headers that frame or route the request, hop-by-hop headers, cookies and the MCP transport's own headers cannot be
+      set. A credential is not the proof: the one-time value is still required;
+    - OAuth metadata (checks 14-18) is read only on the server's own origin; an authorization server on another host is
+      not contacted. Check 16 (redirect_uri probing) is never run;
+    - Streamable HTTP only, not the older SSE transport.
+- Time limits: --connect-timeout (default 180 s) bounds the start or connect, --max-time (default 600 s) bounds the whole
+  run. When a limit is reached the server is stopped (stdio) or the connection closed (URL), and no result is written. On
+  Windows, a stdio server still running 2 s after its input closes has its whole process tree ended with the system's
+  taskkill command (only the process this tool started).
+- When a stdio server cannot start, the last lines of its own error output are printed locally, with the planted canary
+  value and secret-looking values hidden. For a URL, an HTTP error shows its status only, never the response body.
+- Results are printed and, with --out, written to a file on your machine. The tool sends nothing to ProtocolProbe or anyone
+  else; ProtocolProbe runs and hosts nothing for it. Its score is "N of M checks passed" over the checks that ran; checks
+  that did not run, or do not apply over HTTP, are listed and never counted.
+- 0.4.0, for CI: --fail-on-finding only changes the exit code (5 when a check needs attention). --sarif writes the result
+  as a SARIF file on your machine, with the same redaction as --out and without your command line; uploading it anywhere
+  (for example to GitHub code scanning) is your own step.
+- 0.5.0: after your server lists its tools, the rules we measured for what Anthropic's, OpenAI's and Google's APIs accept
+  in a tool list are run on that list offline (no network, no model call, nothing sent to any vendor). A match says the
+  list may be refused by that API; no match is not a guarantee. It is not part of the score, the SARIF file or the exit code.
+
+Known limit (stated plainly)
+The proof stops accidents and casual misuse. It is not enforcement: this tool is open source, so anyone can change it to
+skip the proof, and other tools connect to any URL with no proof at all. The proof shows that whoever runs the command
+controls what the server at that URL answers in its instructions, not that they control the platform under it, and not
+that they may test it under that platform's terms. A server that copies text from other people into its instructions, or
+a gateway that passes on another server's instructions, could be proven by someone who does not run it; this cannot be
+detected in general. Use --url only for a server you operate or are authorised to test.
+The --stdio address check reads http(s) addresses in the command line only. A wrapper script that reaches someone else's
+server, or a host written without a scheme, is not detected. Do not use this tool against a server you do not own or have
+permission to test.
+
+Over HTTP (--url)
+The server is not a process this tool starts. Checks 4 (secret leak) and 11 (log leak) look for a fake secret planted in
+such a process's environment, so over HTTP they are N-A with the reason and never counted. Checks 5 (requests to a URL it
+is given) and 10 (reads outside the folder it was given) use a listener and files on this machine: they run when the URL's
+host is localhost, 127.0.0.1 or ::1, and are N-A for any other host. Without a credential, checks 14 and 15 are N-A for a
+server that accepts a session without one. With your credential they are NOT-TESTABLE and say what is missing: 14 (token
+passthrough) needs an upstream service we can watch receive the token, 15 (token audience) needs a second token issued for
+another audience; this tool has neither and makes up neither. The result says, as a fact, whether your server also opened
+a session for the initialize sent without credentials. Check 16 is never run.
+Known limit of the redaction: a server that returns the credential in another form (for example base64-encoded, split, or
+reversed) is not recognised; such output would be printed and written as the server sent it. Keep --out files private.
+
+Through a proxy (--stdio, 0.1.2)
+Through a stdio-to-HTTP proxy (for example npx mcp-remote http://localhost:3000/mcp) the process this tool starts is the
+proxy, not your server. Checks 4 (secret leak) and 11 (log leak) look for a fake secret planted in that process's
+environment, so through a proxy they are reported N-A with the reason and never counted; 0.1.1 counted check 4 as passed
+there. Checks 5 and 10 still run when the command carries the local address (the server is on this machine), and are N-A
+when a known proxy is named with no local address. Detected: a command naming mcp-remote, supergateway, mcp-proxy or
+@pyroprompts/mcp-stdio-to-streamable-http-adapter, or carrying a local http(s) address. Not detected: any other proxy, a
+wrapper script around one, or a server inside a container or virtual machine (not tested); there checks 4, 5, 10 and 11 can
+come out clean without meaning anything. A local HTTP server is best tested with --url http://localhost:<port>/<path>, or
+by starting it in stdio mode if its framework allows.
