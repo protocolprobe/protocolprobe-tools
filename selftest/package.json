@@ -6,6 +6,8 @@
   "license": "ISC",
   "author": "ProtocolProbe <hello@protocolprobe.com>",
   "homepage": "https://protocolprobe.com",
+  "repository": { "type": "git", "url": "git+https://github.com/protocolprobe/protocolprobe-tools.git", "directory": "selftest" },
+  "bugs": { "url": "https://github.com/protocolprobe/protocolprobe-tools/issues" },
   "keywords": ["mcp", "model-context-protocol", "security", "testing"],
   "contentPolicy": { "class": "dual-use" },
   "bin": { "protocolprobe-selftest": "selftest.mjs" },
