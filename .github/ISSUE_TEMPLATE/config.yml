@@ -1,1 +1,11 @@
 blank_issues_enabled: false
+contact_links:
+  - name: A question or an idea
+    url: https://github.com/protocolprobe/protocolprobe-tools/discussions
+    about: Ask in Discussions. Questions and ideas about the two command-line tools are welcome there.
+  - name: A wrong fact on a ProtocolProbe server page
+    url: https://protocolprobe.com/contact
+    about: Write to us, so the fact is checked against its source and, if we were wrong, logged in the corrections log.
+  - name: A security problem in these tools
+    url: https://github.com/protocolprobe/protocolprobe-tools/security/policy
+    about: Report it privately. Please do not open a public issue.
