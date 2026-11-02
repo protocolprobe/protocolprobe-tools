@@ -1,6 +1,6 @@
 {
   "name": "protocolprobe-discover",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Lists the MCP servers configured on this machine and, offline, which are in the official MCP registry. Reads config files only; sends nothing anywhere; never prints secrets.",
   "type": "module",
   "license": "ISC",
