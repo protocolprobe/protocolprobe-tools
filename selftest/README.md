@@ -178,6 +178,17 @@ and values that look like secrets are hidden) and a hint for a few causes we rep
 written for `mcp` 1.x running with 2.x, a wrong `uvx` command name, or a connect timeout during a first download (run the
 server's command once by itself, or raise `--connect-timeout`). For a URL, an HTTP error shows its status only.
 
+## 0.5.1
+
+The package names its source repository (`protocolprobe/protocolprobe-tools`, folder `selftest`). The HTTP checks 14 to 16
+record one more evidence field, `authState`: `operator-credential`, `opened-without-credentials`, `credential-required` or
+`unknown`, taken from what happened in the run. No check's status or wording changed. What changed: the requests the command
+sends to your server's address (the connection and the OAuth metadata reads) carry the User-Agent
+`ProtocolProbe/1.0 (+https://protocolprobe.com; hello@protocolprobe.com)`, so your own logs show what sent them; and a remote
+server that asks for roots gets an empty list (before, it was sent the path of a temporary folder on your machine). The `zod`
+dependency is 4.6.7: 4.6.5 has a high-severity advisory (GHSA-mrhx-c7xc-m3w5, memory use when validating oversized
+collections), fixed in 4.6.6.
+
 ## API pre-check of your tool list (0.5.0)
 
 After your server lists its tools, the command also runs, **offline** (no network, no model call, nothing sent to any

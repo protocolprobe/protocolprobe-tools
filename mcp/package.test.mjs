@@ -23,7 +23,7 @@ test("package.json matches the contract", () => {
   assert.deepEqual(pkg.repository, { type: "git", url: "git+https://github.com/protocolprobe/protocolprobe-tools.git", directory: "mcp" });
   assert.equal(pkg.homepage, "https://protocolprobe.com/docs/api");
   assert.deepEqual(pkg.bugs, { url: "https://github.com/protocolprobe/protocolprobe-tools/issues" });
-  assert.deepEqual(pkg.keywords, ["mcp", "model-context-protocol", "registry"]);
+  assert.deepEqual(pkg.keywords, ["mcp", "mcp-server", "model-context-protocol", "registry"]); // "mcp-server" is the keyword npm search and the lists use for MCP servers
   assert.equal(pkg.scripts.test, "node --test lib.test.mjs server.test.mjs package.test.mjs");
   assert.equal("mcpName" in pkg, false);
   assert.equal(existsSync(new URL("./server.json", import.meta.url)), false);

@@ -59,6 +59,10 @@ What keeps it to that
 - 0.5.0: after your server lists its tools, the rules we measured for what Anthropic's, OpenAI's and Google's APIs accept
   in a tool list are run on that list offline (no network, no model call, nothing sent to any vendor). A match says the
   list may be refused by that API; no match is not a guarantee. It is not part of the score, the SARIF file or the exit code.
+- 0.5.1: the requests the command sends to your server's address and to its OAuth metadata carry the User-Agent
+  ProtocolProbe/1.0 (+https://protocolprobe.com; hello@protocolprobe.com), so your logs show who sent them. A remote server
+  that asks for roots gets an empty list instead of the path of a temporary folder on your machine. No check's status or
+  wording changed.
 
 Known limit (stated plainly)
 The proof stops accidents and casual misuse. It is not enforcement: this tool is open source, so anyone can change it to

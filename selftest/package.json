@@ -1,6 +1,6 @@
 {
   "name": "protocolprobe-selftest",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Runs ProtocolProbe's MCP security checks against YOUR OWN MCP server, from your machine: a local stdio server, or your Streamable HTTP server after it proves control of its exact URL (with your own credential from an environment variable when it needs one). Results stay on your machine; the score counts only checks that ran.",
   "type": "module",
   "license": "ISC",
@@ -33,7 +33,7 @@
   "engines": { "node": ">=18" },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.0",
-    "zod": "4.6.5"
+    "zod": "4.6.7"
   },
   "scripts": {
     "test": "node --test test/package.test.mjs"
