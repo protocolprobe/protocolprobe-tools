@@ -459,14 +459,16 @@ const hostOfUrl = u => { try { return new URL(u).host.toLowerCase(); } catch { r
 // loopback only with `allowLoopback`, our fixtures), no redirect, no private / link-local / metadata address. A
 // resource_metadata or authorization server on another origin is listed as not read, never fetched. Read-only rows keep
 // the old discovery (any host, redirects followed): an owner decision, not changed here.
-export async function httpAuthDims(target, connection, { refused = false, fetchFn = null, gated = false, gatedFetchFor = null } = {}) {
+export async function httpAuthDims(target, connection, { refused = false, fetchFn = null, gated = false, gatedFetchFor = null, publicFetchFor = null } = {}) {
   const url = connection?.finalUrl ?? target.url;
   if (gated && !fetchFn && typeof gatedFetchFor !== 'function') throw new Error('gated discovery needs gatedFetchFor (engine/src/run.js); refusing to read OAuth metadata unrestricted');
   const gatedFetch = gated && !fetchFn ? gatedFetchFor(url) : null;
-  const readVia = fetchFn ?? gatedFetch;
+  // read-only rows (docs/legal C3): any host as before, but every hop must resolve to a public address (publicFetchFor from run.js)
+  const publicFetch = !gated && !fetchFn && typeof publicFetchFor === 'function' ? publicFetchFor(url) : null;
+  const readVia = fetchFn ?? gatedFetch ?? publicFetch;
   const via = readVia ? { fetchFn: readVia } : {};
   const challenge = await probeAuthChallenge(url, via);
-  const disc = await discover(url, challenge, readVia ? { fetchFn: readVia, originOnly: true } : {});
+  const disc = await discover(url, challenge, readVia ? { fetchFn: readVia, originOnly: !publicFetch } : {});
   const notRead = disc.skipped?.length
     ? (gatedFetch
       ? ` Not read: ${disc.skipped.length} OAuth document(s) on another origin (gated full mode reads only the MCP server's own origin, never another party's service).`
@@ -499,8 +501,8 @@ export async function httpAuthDims(target, connection, { refused = false, fetchF
     // server would need its own proven host first (D10), which no record or proof carries today. NOTE: this is true for
     // dim 16 only. The discovery above (oauth.js discover, used by dim 18) GETs OAuth metadata the server names. Gated
     // runs and the self-test read only the server's own origin (gated: also https, no redirect, no private address);
-    // read-only rows still read any host, following up to 5 redirects with no private-address check (owner decision
-    // pending: docs/design/permission-records.md "Still to build").
+    // read-only rows still read any host, following up to 5 redirects, but each hop must resolve to a public address (publicFetchFor,
+    // src/netcheck.js publicDiscoveryFetch; docs/legal C3).
     gated ? dim16Gated(url, open, authState, disc) : result(16, st, null, { url, unauthenticatedConnect: open, authState }, fetchFn
       ? 'Not run: active probing of redirect_uri handling would send requests to your authorization server, which may be another party\'s service and is not covered by the proof.'
       : 'Active redirect_uri probing of a third-party authorization server is not done without the operator\'s authorization.'),
@@ -541,7 +543,7 @@ function dim16Gated(url, open, authState, disc) {
 // (src/api-rules.js). Off by default, so no other caller's result changes.
 // `gated` (engine/src/run.js full mode, permission records): dim 16 in the words of the record (dim16Gated). Not set by the
 // self-test, whose wording stays as published.
-export async function runAllDims(session, target, ctx, { readOnly = false, permit = null, keepToolList = false, gated = false, gatedFetchFor = null } = {}) {
+export async function runAllDims(session, target, ctx, { readOnly = false, permit = null, keepToolList = false, gated = false, gatedFetchFor = null, publicFetchFor = null } = {}) {
   if (!readOnly && typeof permit !== 'function') throw new Error('full mode needs a permission gate (permit); use read-only otherwise');
   const inv = await inventory(session);
   if (inv.capabilities.logging) {
@@ -606,7 +608,7 @@ export async function runAllDims(session, target, ctx, { readOnly = false, permi
 
   const tail = target.kind === 'stdio'
     ? stdioNA(target)
-    : await httpAuthDims(target, session.connection, session.discoveryFetch ? { fetchFn: session.discoveryFetch } : { gated: gated && !readOnly, gatedFetchFor }).catch(e => [14, 15, 16, 17, 18].map(d => result(d, 'HARNESS-ERROR', null, { error: String(e) })));
+    : await httpAuthDims(target, session.connection, session.discoveryFetch ? { fetchFn: session.discoveryFetch } : { gated: gated && !readOnly, gatedFetchFor, publicFetchFor }).catch(e => [14, 15, 16, 17, 18].map(d => result(d, 'HARNESS-ERROR', null, { error: String(e) })));
   for (const r of tail) results[r.dimension] = r;
 
   // ENGINE_CAPTURE_TOOLS=1 keeps the server's own listings (tool descriptions, input schemas, annotations, prompts,

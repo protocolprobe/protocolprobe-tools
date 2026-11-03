@@ -4,6 +4,7 @@
 // the evidence dim 18 needs. Only GETs of public .well-known documents are made.
 
 import { buildDiscoveryUrls } from '@modelcontextprotocol/sdk/client/auth.js';
+import { withIdentity } from './identity.js';
 
 const LOOPBACK = new Set(['localhost', '127.0.0.1', '[::1]', '::1']);
 
@@ -30,7 +31,7 @@ async function getJson(url, fetchFn = fetch) {
   const redirectChain = [];
   try {
     for (let hop = 0; hop <= 5; hop++) {
-      const res = await fetchFn(current, { headers: { accept: 'application/json' }, redirect: 'manual', signal: AbortSignal.timeout(10000) });
+      const res = await fetchFn(current, { headers: withIdentity({ accept: 'application/json' }), redirect: 'manual', signal: AbortSignal.timeout(10000) });
       if (res.status >= 300 && res.status < 400) {
         const loc = res.headers.get('location');
         await res.body?.cancel().catch(() => {});
@@ -101,7 +102,7 @@ export async function probeAuthChallenge(serverUrl, { fetchFn = fetch } = {}) {
   try {
     const res = await fetchFn(serverUrl, {
       method: 'POST', redirect: 'manual',
-      headers: { 'content-type': 'application/json', accept: 'application/json, text/event-stream' },
+      headers: withIdentity({ 'content-type': 'application/json', accept: 'application/json, text/event-stream' }),
       body: JSON.stringify({ jsonrpc: '2.0', id: 0, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'mcp-runtime-engine-auth-probe', version: '0.1.0' } } }),
       signal: AbortSignal.timeout(10000),
     });

@@ -18,6 +18,7 @@
     "src/args.js",
     "src/auth-signals.js",
     "src/dims.js",
+    "src/identity.js",
     "src/oauth.js",
     "src/patterns.js",
     "src/remote-proof.js",

@@ -9,6 +9,7 @@ import crypto from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { StringDecoder } from 'node:string_decoder';
 import { pathToFileURL } from 'node:url';
+import { withIdentity } from './identity.js';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { StreamableHTTPClientTransport } from '@modelcontextprotocol/sdk/client/streamableHttp.js';
@@ -101,6 +102,11 @@ function substitutePlaceholders(value, ctx) {
     .replaceAll('{PROBE_FILE}', ctx.probeFile);
 }
 
+// What the client tells a server that asks for its roots (docs/legal C2, 2026-11-03): a stdio server we start in a sandbox gets the
+// sandbox's own probe folder (dim 10 needs it); a remote server gets none, so a path on the machine that runs the read (it can hold a user
+// name) is never sent to a third party.
+export const rootsFor = (target, ctx) => (target.kind === 'http' ? [] : [{ uri: pathToFileURL(ctx.workdir).href, name: 'probe-root' }]);
+
 // Follow 3xx manually so the redirect chain is recorded as evidence and no
 // configured headers are carried to a different origin.
 export async function resolveRedirects(url, headers = {}, maxHops = 5) {
@@ -111,7 +117,7 @@ export async function resolveRedirects(url, headers = {}, maxHops = 5) {
     try {
       res = await fetch(current, {
         method: 'POST', redirect: 'manual',
-        headers: { 'content-type': 'application/json', accept: 'application/json, text/event-stream', ...headers },
+        headers: { 'content-type': 'application/json', accept: 'application/json, text/event-stream', ...withIdentity(headers) },
         body: JSON.stringify({ jsonrpc: '2.0', id: 0, method: 'initialize', params: { protocolVersion: '2025-06-18', capabilities: {}, clientInfo: { name: 'mcp-runtime-engine-redirect-probe', version: '0.1.0' } } }),
         signal: AbortSignal.timeout(15000),
       });
@@ -143,7 +149,7 @@ function makeTransport(target, ctx, url, headers, fetchFn) {
       stderr: 'pipe',
     });
   }
-  const requestInit = { headers };
+  const requestInit = { headers: withIdentity(headers) };
   // a given fetch (the remote self-test's pinned, no-redirect fetch: src/remote-proof.js) carries every request of the session
   const viaFetch = fetchFn ? { fetch: fetchFn } : {};
   return target.transportType === 'sse'
@@ -176,7 +182,7 @@ export async function openSession(target, ctx, { connectTimeoutMs = 120000, fetc
   });
   client.setRequestHandler(ListRootsRequestSchema, async () => {
     record('roots-list', null);
-    return { roots: [{ uri: pathToFileURL(ctx.workdir).href, name: 'probe-root' }] };
+    return { roots: rootsFor(target, ctx) };
   });
   client.setNotificationHandler(LoggingMessageNotificationSchema, n => record('log', n.params));
   client.fallbackNotificationHandler = async n => record('notification', { method: n.method, params: n.params });
