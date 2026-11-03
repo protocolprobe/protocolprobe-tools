@@ -1,0 +1,76 @@
+{
+  "apiVersion": "1",
+  "server": {
+    "name": "io.github.upstash/context7",
+    "version": "4.4.4",
+    "page": "https://protocolprobe.com/mcp/servers/io.github.upstash/context7",
+    "asOf": {
+      "registry": "2026-10-22T23:38:19.277Z",
+      "taxonomy": "2026-10-23T01:03:57.160Z"
+    },
+    "recordChecks": {
+      "version": "1",
+      "met": 8,
+      "of": 9,
+      "notApplicable": 0,
+      "notChecked": 0,
+      "checks": [
+        {
+          "id": "listing",
+          "label": "Registry entry is active and says how to run it",
+          "state": "met",
+          "detail": "Active, with a package or a remote address."
+        },
+        {
+          "id": "repo-opens",
+          "label": "Source repository link opens",
+          "state": "met",
+          "detail": "The linked GitHub repository is public."
+        },
+        {
+          "id": "not-archived",
+          "label": "Repository is not archived",
+          "state": "met",
+          "detail": "Not archived."
+        },
+        {
+          "id": "recent-push",
+          "label": "Code pushed to the repository in the 90 days before our check",
+          "state": "met",
+          "detail": "Last push 0-30 days before our check."
+        },
+        {
+          "id": "security-policy",
+          "label": "Repository publishes a security policy (SECURITY.md)",
+          "state": "met",
+          "detail": "SECURITY.md found."
+        },
+        {
+          "id": "licence",
+          "label": "Package names its licence with a standard (SPDX) identifier",
+          "state": "met",
+          "detail": "MIT"
+        },
+        {
+          "id": "installs",
+          "label": "The version the registry lists can be installed and is not withdrawn",
+          "state": "met",
+          "detail": "The listed version exists and is current."
+        },
+        {
+          "id": "provenance",
+          "label": "npm package carries build provenance (attestation)",
+          "state": "not-met",
+          "detail": "Signed by npm, but no build attestation."
+        },
+        {
+          "id": "advisories",
+          "label": "No known critical or high advisory in the package or its dependencies",
+          "state": "met",
+          "detail": "None known in the package or its dependency tree."
+        }
+      ]
+    },
+    "attribution": "ProtocolProbe — https://protocolprobe.com/mcp/servers/io.github.upstash/context7 (CC BY 4.0)"
+  }
+}

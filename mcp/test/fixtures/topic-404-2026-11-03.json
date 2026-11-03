@@ -1,0 +1,7 @@
+{
+  "error": {
+    "status": 404,
+    "code": "not-found",
+    "message": "Unknown topic. The topic list is in /api/v1/meta."
+  }
+}

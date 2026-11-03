@@ -1,0 +1,76 @@
+{
+  "apiVersion": "1",
+  "server": {
+    "name": "ai.agentrapay/agentra",
+    "version": "1.0.0",
+    "page": "https://protocolprobe.com/mcp/servers/ai.agentrapay/agentra",
+    "asOf": {
+      "registry": "2026-10-23T22:45:41.519Z",
+      "taxonomy": "2026-10-23T22:45:54.663Z"
+    },
+    "recordChecks": {
+      "version": "1",
+      "met": 1,
+      "of": 2,
+      "notApplicable": 7,
+      "notChecked": 0,
+      "checks": [
+        {
+          "id": "listing",
+          "label": "Registry entry is active and says how to run it",
+          "state": "met",
+          "detail": "Active, with a package or a remote address."
+        },
+        {
+          "id": "repo-opens",
+          "label": "Source repository link opens",
+          "state": "not-met",
+          "detail": "The entry has a repository field, but it is empty."
+        },
+        {
+          "id": "not-archived",
+          "label": "Repository is not archived",
+          "state": "not-applicable",
+          "detail": "No public GitHub repository to read."
+        },
+        {
+          "id": "recent-push",
+          "label": "Code pushed to the repository in the 90 days before our check",
+          "state": "not-applicable",
+          "detail": "No public GitHub repository to read."
+        },
+        {
+          "id": "security-policy",
+          "label": "Repository publishes a security policy (SECURITY.md)",
+          "state": "not-applicable",
+          "detail": "No public GitHub repository to read."
+        },
+        {
+          "id": "licence",
+          "label": "Package names its licence with a standard (SPDX) identifier",
+          "state": "not-applicable",
+          "detail": "Remote server: it ships no package."
+        },
+        {
+          "id": "installs",
+          "label": "The version the registry lists can be installed and is not withdrawn",
+          "state": "not-applicable",
+          "detail": "Remote server: it ships no package."
+        },
+        {
+          "id": "provenance",
+          "label": "npm package carries build provenance (attestation)",
+          "state": "not-applicable",
+          "detail": "Remote server: it ships no package."
+        },
+        {
+          "id": "advisories",
+          "label": "No known critical or high advisory in the package or its dependencies",
+          "state": "not-applicable",
+          "detail": "Remote server: it ships no package."
+        }
+      ]
+    },
+    "attribution": "ProtocolProbe — https://protocolprobe.com/mcp/servers/ai.agentrapay/agentra (CC BY 4.0)"
+  }
+}

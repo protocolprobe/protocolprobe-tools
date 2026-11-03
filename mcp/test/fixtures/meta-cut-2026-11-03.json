@@ -1,0 +1,112 @@
+{
+  "apiVersion": "1",
+  "license": {
+    "id": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "ProtocolProbe (https://protocolprobe.com), with a link to the server's page and the date checked",
+    "excludes": "Text quoted from others is not ours to license: the publisher's registry title, description and status message, quotes from the publisher's website (pricing), deprecation messages from npm or PyPI, the registry status message of a removed server and the status messages in the registry status changes of /changes (statusChanged), GitHub release names and release notes in registryChange, statements quoted from a repository's security policy, the tool descriptions in toolFacts (each is the publisher's first sentence), and tool, resource and package names."
+  },
+  "attribution": "Compiled by ProtocolProbe (https://protocolprobe.com). Reuse under CC BY 4.0: credit ProtocolProbe with each record's `page` link and `asOf` date.",
+  "docs": "https://protocolprobe.com/docs/api",
+  "catalogue": {
+    "servers": 54988,
+    "registrySnapshot": "2026-11-02",
+    "generatedAt": "2026-11-02T15:10:57.981Z",
+    "base": "server-records",
+    "topics": [
+      {
+        "topic": "data-and-databases",
+        "servers": 6600
+      },
+      {
+        "topic": "developer-tools",
+        "servers": 6158
+      },
+      {
+        "topic": "finance-and-payments",
+        "servers": 5788
+      },
+      {
+        "topic": "commerce-and-marketing",
+        "servers": 5399
+      }
+    ],
+    "topicsNotLabelled": {
+      "runsDisagreed": 2532,
+      "notReadYet": 7864
+    },
+    "toolLists": [
+      {
+        "tool": "changes-data",
+        "servers": 8970
+      },
+      {
+        "tool": "read-or-search",
+        "servers": 18873
+      },
+      {
+        "tool": "create-or-update-data",
+        "servers": 5825
+      },
+      {
+        "tool": "compute-or-transform",
+        "servers": 4933
+      },
+      {
+        "tool": "generate-content",
+        "servers": 4227
+      },
+      {
+        "tool": "send-message",
+        "servers": 2605
+      },
+      {
+        "tool": "delete-data",
+        "servers": 2117
+      },
+      {
+        "tool": "execute-code-or-command",
+        "servers": 1391
+      },
+      {
+        "tool": "payment-or-financial",
+        "servers": 804
+      },
+      {
+        "tool": "other",
+        "servers": 584
+      },
+      {
+        "tool": "control-browser-or-desktop",
+        "servers": 451
+      },
+      {
+        "tool": "manage-infrastructure",
+        "servers": 112
+      }
+    ],
+    "serversWithToolFacts": 25993
+  },
+  "mismatchShare": {
+    "current": {
+      "pct": 11.1,
+      "count": 6128,
+      "of": 54988,
+      "countedAt": "2026-11-02",
+      "registrySnapshot": "2026-11-02",
+      "base": "entries in the registry list of 2026-11-02",
+      "label": "today's records: entries with at least one of the first report's five mismatches between the registry listing and npm, PyPI or GitHub"
+    },
+    "firstReport": {
+      "pct": 13.9,
+      "count": 5435,
+      "of": 38977,
+      "registrySnapshot": "2026-10-04",
+      "checkedAt": "2026-10-06",
+      "base": "entries in the registry list of 2026-10-04",
+      "label": "first report: entries with at least one of the first report's five mismatches between the registry listing and npm, PyPI or GitHub",
+      "frozen": true
+    },
+    "note": "Two different measurements, never one figure: `current` moves with each daily load and is quoted as '<pct>% of <of> entries (counted <countedAt>)'; `firstReport` is frozen and is quoted only with its registry snapshot date."
+  }
+}

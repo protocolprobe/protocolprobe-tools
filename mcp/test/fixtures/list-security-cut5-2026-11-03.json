@@ -1,0 +1,76 @@
+{
+  "apiVersion": "1",
+  "license": {
+    "id": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "ProtocolProbe (https://protocolprobe.com), with a link to the server's page and the date checked",
+    "excludes": "Text quoted from others is not ours to license: the publisher's registry title, description and status message, quotes from the publisher's website (pricing), deprecation messages from npm or PyPI, the registry status message of a removed server and the status messages in the registry status changes of /changes (statusChanged), GitHub release names and release notes in registryChange, statements quoted from a repository's security policy, the tool descriptions in toolFacts (each is the publisher's first sentence), and tool, resource and package names."
+  },
+  "attribution": "Compiled by ProtocolProbe (https://protocolprobe.com). Reuse under CC BY 4.0: credit ProtocolProbe with each record's `page` link and `asOf` date.",
+  "docs": "https://protocolprobe.com/docs/api",
+  "total": 2361,
+  "page": 1,
+  "pages": 5,
+  "pageSize": 500,
+  "topic": "security",
+  "tool": null,
+  "next": "https://protocolprobe.com/api/v1/servers?page=2&topic=security",
+  "prev": null,
+  "servers": [
+    {
+      "name": "ai.agentrapay/agentra",
+      "title": null,
+      "description": "Identity oracle and trust layer for autonomous AI agents. Bidirectional KYA and trust scoring.",
+      "topic": "security",
+      "hostingType": "remote",
+      "verdict": "unreachable",
+      "lastChecked": "2026-10-23",
+      "page": "https://protocolprobe.com/mcp/servers/ai.agentrapay/agentra",
+      "api": "https://protocolprobe.com/api/v1/servers/ai.agentrapay/agentra"
+    },
+    {
+      "name": "ai.agenttrust/mcp-server",
+      "title": "AgentTrust — Identity & Trust for A2A Agents",
+      "description": "Identity, trust, and A2A orchestration for autonomous AI agents. Official A2A partner.",
+      "topic": "security",
+      "hostingType": "local-package",
+      "verdict": null,
+      "lastChecked": "2026-10-23",
+      "page": "https://protocolprobe.com/mcp/servers/ai.agenttrust/mcp-server",
+      "api": "https://protocolprobe.com/api/v1/servers/ai.agenttrust/mcp-server"
+    },
+    {
+      "name": "ai.ai-akari/agent-trust-receipt",
+      "title": "AIﾉアカリ☆ Agent Trust Receipt",
+      "description": "Read-only Remote MCP for externally grounded AI agent trust receipts.",
+      "topic": "security",
+      "hostingType": "remote",
+      "verdict": "not-probed-policy",
+      "lastChecked": "2026-10-23",
+      "page": "https://protocolprobe.com/mcp/servers/ai.ai-akari/agent-trust-receipt",
+      "api": "https://protocolprobe.com/api/v1/servers/ai.ai-akari/agent-trust-receipt"
+    },
+    {
+      "name": "ai.aislabs/cve",
+      "title": "AIS CVE Priorities — daily exploit-ranked patch list for AI agents",
+      "description": "Daily CVE priorities ranked by real exploitation (KEV+EPSS) for AI agents; free teaser, paid full",
+      "topic": "security",
+      "hostingType": "remote",
+      "verdict": "not-probed-policy",
+      "lastChecked": "2026-10-23",
+      "page": "https://protocolprobe.com/mcp/servers/ai.aislabs/cve",
+      "api": "https://protocolprobe.com/api/v1/servers/ai.aislabs/cve"
+    },
+    {
+      "name": "ai.anha/resolver",
+      "title": null,
+      "description": "Resolve @handles to post-quantum-signed agent identities and transact with the brands behind them.",
+      "topic": "security",
+      "hostingType": "remote",
+      "verdict": "unproven-credential",
+      "lastChecked": "2026-10-23",
+      "page": "https://protocolprobe.com/mcp/servers/ai.anha/resolver",
+      "api": "https://protocolprobe.com/api/v1/servers/ai.anha/resolver"
+    }
+  ]
+}

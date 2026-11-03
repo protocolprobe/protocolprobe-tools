@@ -1,0 +1,3 @@
+# Published as an npm package: the bin needs LF (a CRLF shebang fails on Linux and macOS), the snapshot is binary.
+* text=auto eol=lf
+*.gz binary

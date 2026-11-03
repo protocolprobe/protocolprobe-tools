@@ -1,0 +1,76 @@
+{
+  "apiVersion": "1",
+  "server": {
+    "name": "io.github.github/github-mcp-server",
+    "version": "2.0.3",
+    "page": "https://protocolprobe.com/mcp/servers/io.github.github/github-mcp-server",
+    "asOf": {
+      "registry": "2026-10-22T23:38:19.277Z",
+      "taxonomy": "2026-10-23T00:32:48.238Z"
+    },
+    "recordChecks": {
+      "version": "1",
+      "met": 5,
+      "of": 5,
+      "notApplicable": 4,
+      "notChecked": 0,
+      "checks": [
+        {
+          "id": "listing",
+          "label": "Registry entry is active and says how to run it",
+          "state": "met",
+          "detail": "Active, with a package or a remote address."
+        },
+        {
+          "id": "repo-opens",
+          "label": "Source repository link opens",
+          "state": "met",
+          "detail": "The linked GitHub repository is public."
+        },
+        {
+          "id": "not-archived",
+          "label": "Repository is not archived",
+          "state": "met",
+          "detail": "Not archived."
+        },
+        {
+          "id": "recent-push",
+          "label": "Code pushed to the repository in the 90 days before our check",
+          "state": "met",
+          "detail": "Last push 0-30 days before our check."
+        },
+        {
+          "id": "security-policy",
+          "label": "Repository publishes a security policy (SECURITY.md)",
+          "state": "met",
+          "detail": "SECURITY.md found."
+        },
+        {
+          "id": "licence",
+          "label": "Package names its licence with a standard (SPDX) identifier",
+          "state": "not-applicable",
+          "detail": "Not an npm or PyPI package."
+        },
+        {
+          "id": "installs",
+          "label": "The version the registry lists can be installed and is not withdrawn",
+          "state": "not-applicable",
+          "detail": "Not an npm or PyPI package."
+        },
+        {
+          "id": "provenance",
+          "label": "npm package carries build provenance (attestation)",
+          "state": "not-applicable",
+          "detail": "PyPI packages have no npm-style attestation."
+        },
+        {
+          "id": "advisories",
+          "label": "No known critical or high advisory in the package or its dependencies",
+          "state": "not-applicable",
+          "detail": "Not an npm or PyPI package."
+        }
+      ]
+    },
+    "attribution": "ProtocolProbe — https://protocolprobe.com/mcp/servers/io.github.github/github-mcp-server (CC BY 4.0)"
+  }
+}

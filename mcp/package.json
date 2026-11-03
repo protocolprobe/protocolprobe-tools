@@ -1,0 +1,42 @@
+{
+  "name": "protocolprobe-mcp",
+  "version": "0.1.0",
+  "description": "An MCP server that lets AI agents read ProtocolProbe's public facts about MCP registry entries: record checks, topics, registry size and daily changes. Read-only, no key.",
+  "type": "module",
+  "license": "ISC",
+  "author": "ProtocolProbe <hello@protocolprobe.com>",
+  "homepage": "https://protocolprobe.com/docs/api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/protocolprobe/protocolprobe-tools.git",
+    "directory": "mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/protocolprobe/protocolprobe-tools/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "registry"
+  ],
+  "bin": {
+    "protocolprobe-mcp": "server.mjs"
+  },
+  "main": "server.mjs",
+  "files": [
+    "server.mjs",
+    "lib.mjs",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test lib.test.mjs server.test.mjs package.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.0",
+    "zod": "4.6.7"
+  }
+}

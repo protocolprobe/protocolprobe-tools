@@ -1,0 +1,7 @@
+{
+  "error": {
+    "status": 404,
+    "code": "not-found",
+    "message": "No server with this name in the official MCP Registry snapshot we hold."
+  }
+}

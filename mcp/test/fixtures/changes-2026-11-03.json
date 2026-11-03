@@ -1,0 +1,210 @@
+{
+  "apiVersion": "1",
+  "license": {
+    "id": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "attribution": "ProtocolProbe (https://protocolprobe.com), with a link to the server's page and the date checked",
+    "excludes": "Text quoted from others is not ours to license: the publisher's registry title, description and status message, quotes from the publisher's website (pricing), deprecation messages from npm or PyPI, the registry status message of a removed server and the status messages in the registry status changes of /changes (statusChanged), GitHub release names and release notes in registryChange, statements quoted from a repository's security policy, the tool descriptions in toolFacts (each is the publisher's first sentence), and tool, resource and package names."
+  },
+  "attribution": "Compiled by ProtocolProbe (https://protocolprobe.com). Reuse under CC BY 4.0: credit ProtocolProbe with each record's `page` link and `asOf` date.",
+  "docs": "https://protocolprobe.com/docs/api",
+  "note": "registry: changes between two pulls of the official MCP Registry list (new, new version, no longer listed, listed again, and from 2026-10-29 statusChanged: the same listed version with a changed registry status, status message or dates; counts.statusChanged absent and statusChanged null = not recorded for that day, never 0); the registry gives no reason and we give none. A status message is the publisher's text, quoted. facts: what changed when we re-read public facts of servers (npm, PyPI, GitHub, OSV, our version-pin check) for the same server and listed version; our own failed lookups are never counted as changes (ourLimit). No server's tools were called.",
+  "registry": [
+    {
+      "date": "2026-11-02",
+      "previousSnapshot": "2026-11-01",
+      "snapshotAt": "2026-11-02T12:30:26.647Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 54988
+      },
+      "counts": {
+        "new": 588,
+        "newVersion": 1652,
+        "removed": 6,
+        "returned": 1,
+        "statusChanged": 6
+      },
+      "loadedAt": "2026-11-02T15:11:11.412Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-11-02",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-11-02",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-11-02"
+    },
+    {
+      "date": "2026-11-01",
+      "previousSnapshot": "2026-10-31",
+      "snapshotAt": "2026-11-01T20:16:50.921Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 54405
+      },
+      "counts": {
+        "new": 781,
+        "newVersion": 1629,
+        "removed": 13,
+        "returned": 0,
+        "statusChanged": 1
+      },
+      "loadedAt": "2026-11-01T21:59:48.569Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-11-01",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-11-01",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-11-01"
+    },
+    {
+      "date": "2026-10-31",
+      "previousSnapshot": "2026-10-30",
+      "snapshotAt": "2026-10-31T14:31:41.743Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 53637
+      },
+      "counts": {
+        "new": 555,
+        "newVersion": 1591,
+        "removed": 8,
+        "returned": 0,
+        "statusChanged": 144
+      },
+      "loadedAt": "2026-10-31T16:06:50.060Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-31",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-31",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-31"
+    },
+    {
+      "date": "2026-10-30",
+      "previousSnapshot": "2026-10-29",
+      "snapshotAt": "2026-10-30T14:27:12.989Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 53090
+      },
+      "counts": {
+        "new": 962,
+        "newVersion": 3448,
+        "removed": 10,
+        "returned": 0,
+        "statusChanged": 4
+      },
+      "loadedAt": "2026-10-30T19:45:20.525Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-30",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-30",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-30"
+    },
+    {
+      "date": "2026-10-29",
+      "previousSnapshot": "2026-10-28",
+      "snapshotAt": "2026-10-29T01:38:37.981Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 52138
+      },
+      "counts": {
+        "new": 307,
+        "newVersion": 1258,
+        "removed": 3,
+        "returned": 0,
+        "statusChanged": 59
+      },
+      "loadedAt": "2026-10-29T02:37:46.125Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-29",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-29",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-29"
+    },
+    {
+      "date": "2026-10-28",
+      "previousSnapshot": "2026-10-27",
+      "snapshotAt": "2026-10-28T14:26:37.410Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 51834
+      },
+      "counts": {
+        "new": 671,
+        "newVersion": 1159,
+        "removed": 5,
+        "returned": 0
+      },
+      "loadedAt": "2026-10-28T15:37:01.750Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-28",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-28",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-28"
+    },
+    {
+      "date": "2026-10-27",
+      "previousSnapshot": "2026-10-26",
+      "snapshotAt": "2026-10-27T14:32:34.803Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 51168
+      },
+      "counts": {
+        "new": 724,
+        "newVersion": 1601,
+        "removed": 9,
+        "returned": 0
+      },
+      "loadedAt": "2026-10-27T15:50:49.637Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-27",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-27",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-27"
+    },
+    {
+      "date": "2026-10-26",
+      "previousSnapshot": "2026-10-24",
+      "snapshotAt": "2026-10-26T14:44:24.510Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 50453
+      },
+      "counts": {
+        "new": 1014,
+        "newVersion": 2010,
+        "removed": 6,
+        "returned": 0
+      },
+      "loadedAt": "2026-10-26T16:43:33.614Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-26",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-26",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-26"
+    },
+    {
+      "date": "2026-10-24",
+      "previousSnapshot": "2026-10-23",
+      "snapshotAt": "2026-10-24T16:43:10.043Z",
+      "source": "daily pull",
+      "totals": {
+        "servers": 49445
+      },
+      "counts": {
+        "new": 928,
+        "newVersion": 1906,
+        "removed": 34,
+        "returned": 0
+      },
+      "loadedAt": "2026-10-24T17:54:30.747Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-24",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-24",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-24"
+    },
+    {
+      "date": "2026-10-23",
+      "previousSnapshot": "2026-10-04",
+      "snapshotAt": "2026-10-22T23:13:43.000Z",
+      "source": "monthly refresh",
+      "totals": {
+        "servers": 48551
+      },
+      "counts": {
+        "new": 9803,
+        "newVersion": 5646,
+        "removed": 229,
+        "returned": 0
+      },
+      "loadedAt": "2026-10-24T13:08:45.532Z",
+      "page": "https://protocolprobe.com/mcp/changes#2026-10-23",
+      "dayPage": "https://protocolprobe.com/mcp/changes/2026-10-23",
+      "api": "https://protocolprobe.com/api/v1/changes?day=2026-10-23"
+    }
+  ],
+  "facts": []
+}

@@ -1,0 +1,7 @@
+{
+  "error": {
+    "status": 404,
+    "code": "not-found",
+    "message": "No page 200."
+  }
+}
