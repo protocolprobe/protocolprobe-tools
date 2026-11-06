@@ -14,7 +14,7 @@ const withoutAllowed = (s) => s.replaceAll("not a security rating", "");
 
 test("package.json matches the contract", () => {
   assert.equal(pkg.name, "protocolprobe-mcp");
-  assert.equal(pkg.version, "0.1.0");
+  assert.equal(pkg.version, "0.1.1");
   assert.equal(VERSION, pkg.version);
   assert.equal(pkg.type, "module");
   assert.equal(pkg.license, "ISC");
@@ -25,8 +25,10 @@ test("package.json matches the contract", () => {
   assert.deepEqual(pkg.bugs, { url: "https://github.com/protocolprobe/protocolprobe-tools/issues" });
   assert.deepEqual(pkg.keywords, ["mcp", "mcp-server", "model-context-protocol", "registry"]); // "mcp-server" is the keyword npm search and the lists use for MCP servers
   assert.equal(pkg.scripts.test, "node --test lib.test.mjs server.test.mjs package.test.mjs");
-  assert.equal("mcpName" in pkg, false);
-  assert.equal(existsSync(new URL("./server.json", import.meta.url)), false);
+  // the official MCP registry checks this name against the npm package at publish time (docs: quickstart, "mcpName"); the domain route
+  // (com.protocolprobe, proven with an HTTP file on protocolprobe.com) needs no GitHub login
+  assert.equal(pkg.mcpName, "com.protocolprobe/protocolprobe-mcp");
+  assert.equal(existsSync(new URL("./server.json", import.meta.url)), true);
   assert.equal(pkg.scripts.install, undefined);
   assert.equal(pkg.scripts.postinstall, undefined);
   assert.equal(pkg.scripts.preinstall, undefined);
@@ -59,11 +61,11 @@ test("npm pack --dry-run lists the whitelist plus package.json and nothing else"
   for (const must of ["server.mjs", "lib.mjs", "LICENSE", "package.json"]) assert.ok(got.includes(must), must);
   for (const f of got) assert.doesNotMatch(f, /test|fixtures|node_modules|contract|\.live\./i);
   assert.equal(info.name, "protocolprobe-mcp");
-  assert.equal(info.version, "0.1.0");
+  assert.equal(info.version, "0.1.1");
   assert.ok(info.size < 60000, `tarball ${info.size} bytes`);
 });
 test("the folder holds only the expected files (nothing stray that could be shipped by mistake)", () => {
-  const expected = [".gitattributes", "LICENSE", "README.md", "contract.live.mjs", "lib.mjs", "lib.test.mjs", "node_modules", "package-lock.json", "package.json", "package.test.mjs", "server.mjs", "server.test.mjs", "test"];
+  const expected = [".gitattributes", "LICENSE", "README.md", "contract.live.mjs", "lib.mjs", "lib.test.mjs", "node_modules", "package-lock.json", "package.json", "package.test.mjs", "server.json", "server.mjs", "server.test.mjs", "test"];
   for (const f of readdirSync(dir)) assert.ok(expected.includes(f), `unexpected file ${f}`);
 });
 
@@ -159,7 +161,7 @@ test("bin: the process answers initialize and tools/list over stdio, stdout carr
   for (const m of msgs) assert.equal(m.jsonrpc, "2.0");
   const init = msgs.find((m) => m.id === 1).result;
   assert.equal(init.serverInfo.name, "protocolprobe");
-  assert.equal(init.serverInfo.version, "0.1.0");
+  assert.equal(init.serverInfo.version, "0.1.1");
   assert.equal(init.instructions, INSTRUCTIONS);
   assert.deepEqual(Object.keys(init.capabilities), ["tools"].filter((k) => k in init.capabilities));
   assert.ok("tools" in init.capabilities);
@@ -190,4 +192,21 @@ test(".gitattributes keeps the files LF (the bin has a shebang: a CRLF one fails
   const a = read(".gitattributes");
   assert.match(a, /^\* text=auto eol=lf$/m);
   assert.equal(a, readFileSync(new URL("../discover/.gitattributes", import.meta.url), "utf8"), "same as the discover package's file");
+});
+
+test("server.json (for the official MCP registry) agrees with package.json and is not shipped in the npm package", () => {
+  const sj = JSON.parse(read("server.json"));
+  assert.deepEqual(Object.keys(sj).sort(), ["$schema", "description", "name", "packages", "repository", "title", "version", "websiteUrl"]);
+  assert.equal(sj.$schema, "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json");
+  assert.equal(sj.name, pkg.mcpName);
+  assert.match(sj.name, /^[a-zA-Z0-9.-]+\/[a-zA-Z0-9._-]+$/);
+  assert.equal(sj.version, pkg.version);
+  assert.ok(sj.description.length > 0 && sj.description.length <= 100, "the registry limits description to 100 characters");
+  assert.doesNotMatch(withoutAllowed(sj.description), BANNED);
+  assert.equal(sj.websiteUrl, pkg.homepage);
+  assert.deepEqual(sj.repository, { url: "https://github.com/protocolprobe/protocolprobe-tools", source: "github", subfolder: "mcp" });
+  assert.equal(`git+${sj.repository.url}.git`, pkg.repository.url);
+  assert.equal(sj.repository.subfolder, pkg.repository.directory);
+  assert.deepEqual(sj.packages, [{ registryType: "npm", registryBaseUrl: "https://registry.npmjs.org", identifier: pkg.name, version: pkg.version, transport: { type: "stdio" } }]);
+  assert.equal(pkg.files.includes("server.json"), false, "server.json is registry metadata, not part of the package");
 });

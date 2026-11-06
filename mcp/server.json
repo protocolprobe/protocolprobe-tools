@@ -1,0 +1,24 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.protocolprobe/protocolprobe-mcp",
+  "description": "Read ProtocolProbe's public facts on MCP registry entries: record checks, topics, daily changes.",
+  "title": "ProtocolProbe",
+  "websiteUrl": "https://protocolprobe.com/docs/api",
+  "repository": {
+    "url": "https://github.com/protocolprobe/protocolprobe-tools",
+    "source": "github",
+    "subfolder": "mcp"
+  },
+  "version": "0.1.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "protocolprobe-mcp",
+      "version": "0.1.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

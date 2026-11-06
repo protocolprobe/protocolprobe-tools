@@ -1,6 +1,7 @@
 {
   "name": "protocolprobe-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
+  "mcpName": "com.protocolprobe/protocolprobe-mcp",
   "description": "An MCP server that lets AI agents read ProtocolProbe's public facts about MCP registry entries: record checks, topics, registry size and daily changes. Read-only, no key.",
   "type": "module",
   "license": "ISC",

@@ -69,6 +69,6 @@ Record checks count what public records say on a given date. They are not a secu
 
 ## Version, issues
 
-Version 0.1.0. The facts in this README (tool names, inputs, limits, the privacy page and the repository address) were checked on 2026-11-03.
+Version 0.1.1. The facts in this README (tool names, inputs, limits, the privacy page and the repository address) were checked on 2026-11-03.
 
 Issues and questions: https://github.com/protocolprobe/protocolprobe-tools/issues (this package is the `mcp/` folder of https://github.com/protocolprobe/protocolprobe-tools).
